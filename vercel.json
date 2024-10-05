@@ -16,10 +16,6 @@
       "dest": "/a/index.js"
     },
     {
-      "src": "/a/(.*)",
-      "dest": "/a/index.js"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.js"
     }
