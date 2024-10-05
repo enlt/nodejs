@@ -8,7 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/anime/(.*)",
+      "src": "/a/(.*)",
       "dest": "piclibrary/index.js"
     }
   ]
