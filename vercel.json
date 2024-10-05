@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "PicLibrary/AnimeImage/index.js",
+      "src": "piclibrary/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/anime(.*)",
-      "dest": "PicLibrary/AnimeImage/index.js"
+      "dest": "piclibrary/index.js"
     }
   ]
 }
