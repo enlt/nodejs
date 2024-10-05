@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "piclibrary/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/a/(.*)",
-      "dest": "piclibrary/index.js"
+      "src": "/a(.*)",
+      "dest": "index.js"
     }
   ]
 }
