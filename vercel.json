@@ -8,7 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/PicLibrary/AnimeImage(.*)",
+      "src": "/anime(.*)",
       "dest": "PicLibrary/AnimeImage/index.js"
     }
   ]
