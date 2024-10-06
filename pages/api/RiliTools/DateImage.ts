@@ -140,8 +140,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const resizedImagePath = await resizeImage(imagePath, 1080, 1277);
         await addTextToImage(resizedImagePath, allTextParams);
 
-        // 返回成功响应
-        res.status(200).json({ message: 'Image created successfully' });
+        // 读取最终生成的图片文件并返回
+        const finalImage = fs.readFileSync(resizedImagePath);
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.send(finalImage);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while creating the image.' });
