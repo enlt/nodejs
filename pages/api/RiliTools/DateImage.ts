@@ -6,9 +6,9 @@ import { createCanvas, loadImage, registerFont } from 'canvas';
 import os from 'os';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// 使用远程字体的 URL
-const FONT_URL = 'https://api.luoh.my.to/storage/ttf/font.ttf';
-const IMAGE_DIR = path.join(__dirname, '../../storage/daysign/images');
+// 使用本地字体路径
+const FONT_PATH = path.join(__dirname, '../../storage/ttf/font.ttf');
+const IMAGE_TXT_URL = 'https://api.luoh.us.kg/storage/daysign/images/images.txt';
 
 // 调整图像尺寸
 async function resizeImage(imagePath: string, newWidth: number, newHeight: number): Promise<string> {
@@ -30,14 +30,8 @@ async function addTextToImage(imagePath: string, textParams: Array<{ text: strin
     // 绘制图片
     ctx.drawImage(image, 0, 0);
 
-    // 加载并使用远程字体
-    const fontData = await axios.get(FONT_URL, { responseType: 'arraybuffer' });
-    const fontBuffer = Buffer.from(fontData.data);
-
-    // 保存缓冲区为临时字体文件
-    const tempFontPath = path.join(os.tmpdir(), 'customFont.ttf');
-    fs.writeFileSync(tempFontPath, fontBuffer);
-    registerFont(tempFontPath, { family: 'CustomFont' });
+    // 使用本地字体
+    registerFont(FONT_PATH, { family: 'CustomFont' });
 
     textParams.forEach(textParam => {
         const { text, size, position, positionsite, x_offset, color } = textParam;
@@ -78,16 +72,17 @@ async function addTextToImage(imagePath: string, textParams: Array<{ text: strin
     fs.writeFileSync(imagePath, buffer);
 }
 
-// cURL 请求获取日期信息
-async function curlGetRequest(url: string): Promise<any> {
-    const response = await axios.get(url);
-    return response.data;
+// 获取远程图片链接
+async function getImageLinks(): Promise<string[]> {
+    const response = await axios.get(IMAGE_TXT_URL);
+    return response.data.split('\n').filter(Boolean);
 }
 
 // 默认导出 API 路由处理函数
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const day = await curlGetRequest("https://api.luoh.my.to/New/RiliTools/DateInfo/");
+        const day = await axios.get("https://api.luoh.my.to/New/RiliTools/DateInfo/").then(res => res.data);
+
         const textParams = [
             {
                 text: day.dateD,
@@ -124,9 +119,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         const allTextParams = [...textParams, ...text];
 
-        const images = fs.readdirSync(IMAGE_DIR).filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
-        const randomImage = path.join(IMAGE_DIR, images[Math.floor(Math.random() * images.length)]);
-        const resizedImagePath = await resizeImage(randomImage, 1080, 1277);
+        // 获取远程图片链接
+        const imageLinks = await getImageLinks();
+        const randomImageLink = imageLinks[Math.floor(Math.random() * imageLinks.length)];
+
+        const imageResponse = await axios.get(randomImageLink, { responseType: 'arraybuffer' });
+        const imagePath = path.join(os.tmpdir(), 'randomImage.jpg');
+        fs.writeFileSync(imagePath, Buffer.from(imageResponse.data));
+
+        const resizedImagePath = await resizeImage(imagePath, 1080, 1277);
         await addTextToImage(resizedImagePath, allTextParams);
 
         // 返回成功响应
