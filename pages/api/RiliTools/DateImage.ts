@@ -96,7 +96,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const textParams = [
             {
                 text: day.dateD,
-                size: 250,
+                size: 180,
                 position: 'bottom',
                 positionsite: 650,
                 x_offset: -80,
@@ -104,7 +104,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             },
             {
                 text: `${day.dateMC}月 ${day.dateY}`,
-                size: 120,
+                size: 50,
                 position: 'bottom',
                 positionsite: 590,
                 x_offset: -80,
@@ -112,7 +112,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             },
             {
                 text: day.hseb,
-                size: 120,
+                size: 50,
                 position: 'bottom',
                 positionsite: 510,
                 x_offset: -80,
@@ -121,10 +121,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         ];
 
         const text = day.text.length > 21 ? [
-            { text: day.text.substring(0, 21), size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] },
-            { text: day.text.substring(21), size: 35, position: 'bottom', positionsite: 250, x_offset: -30, color: [255, 255, 255] }
+            { text: day.text.substring(0, 21), size: 50, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] },
+            { text: day.text.substring(21), size: 50, position: 'bottom', positionsite: 250, x_offset: -30, color: [255, 255, 255] }
         ] : [
-            { text: day.text, size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] }
+            { text: day.text, size: 50, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] }
         ];
 
         const allTextParams = [...textParams, ...text];
