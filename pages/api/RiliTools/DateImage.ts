@@ -3,6 +3,7 @@ import path from 'path';
 import axios from 'axios';
 import sharp from 'sharp';
 import { createCanvas, loadImage, registerFont } from 'canvas';
+import os from 'os';
 
 // 使用远程字体的 URL
 const FONT_URL = 'http://api.luoh.my.to/storage/ttf/font.ttf';
@@ -31,7 +32,11 @@ async function addTextToImage(imagePath: string, textParams: Array<{ text: strin
     // 加载并使用远程字体
     const fontData = await axios.get(FONT_URL, { responseType: 'arraybuffer' });
     const fontBuffer = Buffer.from(fontData.data);
-    registerFont(fontBuffer, { family: 'CustomFont' });
+
+    // 保存缓冲区为临时字体文件
+    const tempFontPath = path.join(os.tmpdir(), 'customFont.ttf');
+    fs.writeFileSync(tempFontPath, fontBuffer);
+    registerFont(tempFontPath, { family: 'CustomFont' });
 
     textParams.forEach(textParam => {
         const { text, size, position, positionsite, x_offset, color } = textParam;
