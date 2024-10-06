@@ -1,0 +1,112 @@
+- class_name: 关于我
+  subtitle: 「落人间，破三弦，忆李仙」
+  avatarImg: 
+  avatarSkills:
+    left:
+      - 海水倾西乱滔天
+      - 大浪惊起尽可怜
+      - 莫言令己亡身道
+      - 惟愿荆棘驻万年
+    right: 
+      - 白发白衣皆傍地
+      - 花开花谢复四季
+      - 余晖映湖亦孤影
+      - 日隐月现催物栖
+  name: 落渐离
+  description: 是一名 爱安静的初中生
+  aboutsiteTips:
+    tips: 追求
+    title1: 源于
+    title2: 热爱而去 感受
+    word:
+      - 生活
+      - 学习
+      - 程序
+      - 娱乐
+  helloAbout: Hello Friends!
+  skillsTips:
+    tips: 技能
+    title: 开启创造力
+  careers:
+    tips: 生涯
+    title: 无限进步
+    list:
+      - desc: 学生
+        color: "#357ef5"
+    img: https://i1.wp.com/pic.chino.my.to/i/2024/08/20/073323.webp
+  map:
+    title: 我现在住在
+    StrengthenTitle: 中国，南阳市
+    background: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/258127.webp
+    backgroundDark: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/029810.webp
+  statistic:
+    link: /archives
+    text: 文章隧道
+    cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/925187.webp
+  selfInfo:
+    selfInfoTips1: 生于
+    selfInfoContentYear: 2011
+    selfInfoTips2: 规划
+    selfInfoContent2: 学习
+    selfInfoTips3: 现在职业
+    selfInfoContent3: 学生
+  personalities:
+    author_name: 调停者
+    personality_type: INFP-T
+    photo_url: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/banner.png
+    personality_img: https://cdn.cbd.int/luoh-blog-static@0.1.2/image/svg/INFP-T.svg
+    name_url: https://www.16personalities.com/ch/infp-人格
+  maxim:
+    maxim_tips: 座右铭
+    maxim_top: 恍恍惚惚勤勤恳恳
+    maxim_bottom: 失失得得失失
+  buff:
+    buff_tips: 特征
+    buff_top: 可能清晰的人?（）
+    buff_bottom: 学习指数 -MAX
+  game:
+    game_tips: 爱好游戏
+    game_title: Minecraft
+    game_uid: 
+    game_bg: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/minecraft.png
+  comic:
+    comic_tips: 爱好番剧
+    comic_title: 追番
+    comic_list:
+      - name: 斗破苍穹
+        href: https://v.qq.com/x/cover/mzc0020027yzd9e.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/799226.webp
+      - name: 吞噬星空
+        href: https://v.qq.com/x/cover/324olz7ilvo2j5f.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/006897.webp
+      - name: 斗罗大陆2
+        href: https://v.qq.com/x/cover/mzc00200xf3rir6.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/784487.webp
+      - name: 遮天
+        href: https://v.qq.com/x/cover/mzc00200n53vkqc.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/995353.webp
+      - name: 斩神之凡尘神域
+        href: https://v.qq.com/x/cover/mzc002006znrsl7.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/446874.webp
+      - name: 仙逆
+        href: https://v.qq.com/x/cover/mzc00200aaogpgh.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/060044.webp
+      - name: 剑来
+        href: https://v.qq.com/x/cover/mzc0020072zgk61.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/21/159039.webp
+      - name: 神印王座
+        href: https://v.qq.com/x/cover/mzc002007j7p5hn.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/791638.webp
+      - name: 完美世界
+        href: https://v.qq.com/x/cover/mcv8hkc8zk8lnov.html
+        cover: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/765216.webp
+  like:
+    like_tips: 关注偏好
+    like_title: 前沿AI
+    like_bg: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/980628.webp
+    like_bottom: 各种新奇的AI
+  music:
+    music_tips: 音乐偏好
+    music_title: 特杂
+    music_bg: https://i1.wp.com/pic.chino.my.to/i/2024/08/17/938575.webp
+    music_link: /music

@@ -10,16 +10,27 @@
 │   ├── tailwind.config.ts
 │   ├── tsconfig.json
 │   ├── directory.txt
+public/
+│   ├── avatar.png
+│   ├── font.woff2
+│   ├── style/
+│   │   ├── index.css
+│   │   ├── material-color.json
+│   │   ├── svelte.css
 pages/
 │   ├── api/
-│   │   ├── pic/
-│   │   │   ├── anime.ts
+│   │   ├── InfoHub/
+│   │   │   ├── HistoryToday.js
+│   │   │   ├── Horoscope.ts
+│   │   ├── PicLibrary/
+│   │   │   ├── Emoticon.ts
+│   │   │   ├── AnimeImage.ts
+│   │   │   ├── Other.ts
+│   │   │   ├── RealImage.ts
+│   │   ├── RiliTools/
+│   │   │   ├── DateImage.ts
 src/
 │   ├── app/
-│   │   ├── favicon.ico
-│   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   ├── fonts/
-│   │   │   ├── GeistMonoVF.woff
-│   │   │   ├── GeistVF.woff
+│   │   ├── welcome/
+│   │   │   ├── page.tsx

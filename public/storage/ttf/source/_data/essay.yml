@@ -1,0 +1,35 @@
+- title: 即刻短文
+  subTitle: 学生的日常思想
+  tips: 随时随地，分享生活
+  buttonText: 关于我
+  buttonLink: /about/
+  limit: 100000
+  home_essay: true
+  top_background: https://i1.wp.com/new-api-2.pages.dev/image/ecy/wallpaper/15e21cfbe0d86af2.webp
+  essay_list:
+    # - content: 
+      # date: YYYY/MM/DD
+      # video:
+        # -
+      # image:
+        # -
+      # from:
+      # address:
+      # link:
+    - content: 换个主题还崩了，换回anheyu～
+      date: 2024/08/21
+    - content: Qexo搭建成功
+      date: 2024/08/15
+      from: 落渐离
+    - content: 又是一番缝补
+      date: 2024/07/29
+      from: 落渐离
+    - content: 几番优化初具雏形
+      date: 2024/07/25
+      from: 落渐离
+    - content: 哈哈，终于想起来有这个博客了
+      date: 2024/05/31
+      from: 落渐离      
+    - content: 芜湖，博客正式建成！
+      date: 2024/04/23
+      from: 落渐离
