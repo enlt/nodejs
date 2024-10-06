@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const name = req.query.msg as string || '';
     
     if (!name) {
-        const response = { status: 400, message: "抱歉，输入为空。" };
+        const response = { status: '400', message: "抱歉，输入为空。" }; // 将 status 改为字符串
         returnType === 'json' ? res.status(400).json(response) : returnImage(response, res);
         return;
     }
@@ -63,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const zodiacKey = zodiacMap[cleanedName];
 
     if (!zodiacKey) {
-        const response = { status: 400, message: "不存在此类型，请查证后重试。" };
+        const response = { status: '400', message: "不存在此类型，请查证后重试。" }; // 将 status 改为字符串
         returnType === 'json' ? res.status(400).json(response) : returnImage(response, res);
         return;
     }
@@ -76,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const matches = /{"contentAll":"(.*?)","contentCareer":"(.*?)","contentFortune":"(.*?)","contentHealth":"(.*?)","contentLove":"(.*?)","contentTravel":"(.*?)","date":(.*?),"direction":"(.*?)","enemies":"(.*?)","friends":"(.*?)","horoscopeType":(.*?),"id":(.*?),"lucklyColor":"(.*?)","lucklyTime":"(.*?)","mark":(.*?),"numbers":(.*?),"pointAll":(.*?),"pointCareer":(.*?),"pointFortune":(.*?),"pointHealth":(.*?),"pointLove":(.*?),"pointTravel":(.*?),"shorts":"(.*?)"}/.exec(data);
 
         if (!matches) {
-            const response = { status: 500, message: "抱歉，获取出错。" };
+            const response = { status: '500', message: "抱歉，获取出错。" }; // 将 status 改为字符串
             returnType === 'json' ? res.status(500).json(response) : returnImage(response, res);
             return;
         }
@@ -94,9 +94,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "提示": matches[23]
         };
 
-        returnType === 'json' ? res.status(200).json({ status: 200, data: horoscopeResponse }) : returnImage(horoscopeResponse, res);
+        returnType === 'json' ? res.status(200).json({ status: '200', data: horoscopeResponse }) : returnImage(horoscopeResponse, res);
     } catch (error) {
-        const response = { status: 500, message: "服务端错误" };
+        const response = { status: '500', message: "服务端错误" }; // 将 status 改为字符串
         returnType === 'json' ? res.status(500).json(response) : returnImage(response, res);
     }
 }
