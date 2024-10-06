@@ -96,7 +96,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const textParams = [
             {
                 text: day.dateD,
-                size: 180,
+                size: 195,
                 position: 'bottom',
                 positionsite: 650,
                 x_offset: -80,
@@ -104,7 +104,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             },
             {
                 text: `${day.dateMC}月 ${day.dateY}`,
-                size: 50,
+                size: 65,
                 position: 'bottom',
                 positionsite: 590,
                 x_offset: -80,
@@ -112,7 +112,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             },
             {
                 text: day.hseb,
-                size: 50,
+                size: 65,
                 position: 'bottom',
                 positionsite: 510,
                 x_offset: -80,
