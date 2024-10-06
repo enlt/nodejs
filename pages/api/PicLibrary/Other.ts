@@ -52,11 +52,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (!imageResponse.ok) {
                 throw new Error("服务端错误");
             }
-            const imageContent = await imageResponse.buffer();
+            const arrayBuffer = await imageResponse.arrayBuffer(); // 使用 arrayBuffer() 方法
+            const buffer = Buffer.from(arrayBuffer); // 将 ArrayBuffer 转换为 Buffer
             const extension = randomImage.split('.').pop() || '';
             const mimeType = getMimeType(extension);
             res.setHeader('Content-Type', mimeType);
-            return res.send(imageContent);
+            return res.send(buffer); // 返回 Buffer
         } catch {
             return handleError(res, "服务端错误");
         }
