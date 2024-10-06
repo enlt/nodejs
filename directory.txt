@@ -1,0 +1,25 @@
+/
+│   ├── l.py
+│   ├── .gitignore
+│   ├── next.config.mjs
+│   ├── next-env.d.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.mjs
+│   ├── README.md
+│   ├── tailwind.config.ts
+│   ├── tsconfig.json
+│   ├── directory.txt
+pages/
+│   ├── api/
+│   │   ├── pic/
+│   │   │   ├── anime.ts
+src/
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── fonts/
+│   │   │   ├── GeistMonoVF.woff
+│   │   │   ├── GeistVF.woff
