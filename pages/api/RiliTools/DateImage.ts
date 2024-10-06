@@ -6,9 +6,18 @@ import { createCanvas, loadImage, registerFont } from 'canvas';
 import os from 'os';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// 使用本地字体路径
-const FONT_PATH = path.join(process.cwd(), 'storage/ttf/font.ttf');
+// 远程字体文件 URL
+const FONT_URL = 'https://api.luoh.us.kg/storage/ttf/font.ttf';
 const IMAGE_TXT_URL = 'https://api.luoh.us.kg/storage/daysign/images/images.txt';
+
+// 下载远程字体并保存到临时目录
+async function downloadFont(): Promise<string> {
+    const fontResponse = await axios.get(FONT_URL, { responseType: 'arraybuffer' });
+    const fontBuffer = Buffer.from(fontResponse.data);
+    const tempFontPath = path.join(os.tmpdir(), 'customFont.ttf');
+    fs.writeFileSync(tempFontPath, fontBuffer);
+    return tempFontPath;
+}
 
 // 调整图像尺寸
 async function resizeImage(imagePath: string, newWidth: number, newHeight: number): Promise<string> {
@@ -30,8 +39,9 @@ async function addTextToImage(imagePath: string, textParams: Array<{ text: strin
     // 绘制图片
     ctx.drawImage(image, 0, 0);
 
-    // 使用本地字体
-    registerFont(FONT_PATH, { family: 'CustomFont' });
+    // 下载并注册远程字体
+    const fontPath = await downloadFont();
+    registerFont(fontPath, { family: 'CustomFont' });
 
     textParams.forEach(textParam => {
         const { text, size, position, positionsite, x_offset, color } = textParam;
