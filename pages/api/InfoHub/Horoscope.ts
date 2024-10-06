@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
-import { createCanvas } from 'canvas';
+import axios from 'axios';
+import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
 
 // 星座与编号的映射
 const zodiacMap: Record<string, string> = {
@@ -23,6 +27,18 @@ const myTrim = (str: string): string => {
     return str.replace(/\s+/g, '');
 };
 
+// 远程加载字体并注册
+const loadAndRegisterFont = async () => {
+    const FONT_URL = 'https://api.luoh.my.to/storage/ttf/font.ttf';
+    const response = await axios.get(FONT_URL, { responseType: 'arraybuffer' });
+    const fontBuffer = Buffer.from(response.data);
+
+    const tempFontPath = path.join(os.tmpdir(), 'customFont.ttf');
+    fs.writeFileSync(tempFontPath, fontBuffer);
+
+    registerFont(tempFontPath, { family: 'CustomFont' });
+};
+
 // 生成图像
 const returnImage = (response: Record<string, string>, res: NextApiResponse) => {
     const width = 400;
@@ -41,7 +57,8 @@ const returnImage = (response: Record<string, string>, res: NextApiResponse) => 
         text += `${key}: ${value}\n`;
     }
     
-    ctx.font = '20px Arial';
+    // 使用加载的远程字体
+    ctx.font = '20px "CustomFont"';
     ctx.fillText(text, 10, 30);
 
     res.setHeader('Content-Type', 'image/png');
@@ -54,7 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const name = req.query.msg as string || '';
     
     if (!name) {
-        const response = { status: '400', message: "抱歉，输入为空。" }; // 将 status 改为字符串
+        const response = { status: '400', message: "抱歉，输入为空。" };
         returnType === 'json' ? res.status(400).json(response) : returnImage(response, res);
         return;
     }
@@ -63,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const zodiacKey = zodiacMap[cleanedName];
 
     if (!zodiacKey) {
-        const response = { status: '400', message: "不存在此类型，请查证后重试。" }; // 将 status 改为字符串
+        const response = { status: '400', message: "不存在此类型，请查证后重试。" };
         returnType === 'json' ? res.status(400).json(response) : returnImage(response, res);
         return;
     }
@@ -71,32 +88,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const horoscopeUrl = `http://cal.meizu.com/android/unauth/horoscope/gethoroscope.do?type=${zodiacKey}&date=${new Date().toISOString().split('T')[0]}&searchType=0`;
     
     try {
-        const response = await fetch(horoscopeUrl);
-        const data = await response.text();
-        const matches = /{"contentAll":"(.*?)","contentCareer":"(.*?)","contentFortune":"(.*?)","contentHealth":"(.*?)","contentLove":"(.*?)","contentTravel":"(.*?)","date":(.*?),"direction":"(.*?)","enemies":"(.*?)","friends":"(.*?)","horoscopeType":(.*?),"id":(.*?),"lucklyColor":"(.*?)","lucklyTime":"(.*?)","mark":(.*?),"numbers":(.*?),"pointAll":(.*?),"pointCareer":(.*?),"pointFortune":(.*?),"pointHealth":(.*?),"pointLove":(.*?),"pointTravel":(.*?),"shorts":"(.*?)"}/.exec(data);
+        const horoscopeResponse = await fetch(horoscopeUrl).then(res => res.json());
 
-        if (!matches) {
-            const response = { status: '500', message: "抱歉，获取出错。" }; // 将 status 改为字符串
-            returnType === 'json' ? res.status(500).json(response) : returnImage(response, res);
-            return;
-        }
+        // 加载并注册远程字体
+        await loadAndRegisterFont();
 
-        const horoscopeResponse = {
+        const response = {
             "星座": cleanedName,
-            "贵人方位": matches[8],
-            "贵人星座": matches[10],
-            "幸运数字": matches[16],
-            "幸运颜色": matches[13],
-            "爱情运势": matches[5],
-            "财富运势": matches[3],
-            "事业运势": matches[2],
-            "整体运势": matches[1],
-            "提示": matches[23]
+            "贵人方位": horoscopeResponse.direction,
+            "贵人星座": horoscopeResponse.friends,
+            "幸运数字": horoscopeResponse.numbers,
+            "幸运颜色": horoscopeResponse.lucklyColor,
+            "爱情运势": horoscopeResponse.contentLove,
+            "财富运势": horoscopeResponse.contentFortune,
+            "事业运势": horoscopeResponse.contentCareer,
+            "整体运势": horoscopeResponse.contentAll,
+            "提示": horoscopeResponse.shorts
         };
 
-        returnType === 'json' ? res.status(200).json({ status: '200', data: horoscopeResponse }) : returnImage(horoscopeResponse, res);
+        returnType === 'json' ? res.status(200).json({ status: '200', data: response }) : returnImage(response, res);
     } catch (error) {
-        const response = { status: '500', message: "服务端错误" }; // 将 status 改为字符串
+        const response = { status: '500', message: "服务端错误" };
         returnType === 'json' ? res.status(500).json(response) : returnImage(response, res);
     }
 }

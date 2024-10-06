@@ -4,9 +4,10 @@ import axios from 'axios';
 import sharp from 'sharp';
 import { createCanvas, loadImage, registerFont } from 'canvas';
 import os from 'os';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 使用远程字体的 URL
-const FONT_URL = 'http://api.luoh.my.to/storage/ttf/font.ttf';
+const FONT_URL = 'https://api.luoh.my.to/storage/ttf/font.ttf';
 const IMAGE_DIR = path.join(__dirname, '../../../public/storage/daysign/images');
 
 // 调整图像尺寸
@@ -83,46 +84,55 @@ async function curlGetRequest(url: string): Promise<any> {
     return response.data;
 }
 
-(async () => {
-    const day = await curlGetRequest("https://api.luoh.my.to/New/RiliTools/DateInfo/");
-    const textParams = [
-        {
-            text: day.dateD,
-            size: 180,
-            position: 'bottom',
-            positionsite: 600,
-            x_offset: -80,
-            color: [255, 255, 255]
-        },
-        {
-            text: `${day.dateMC}月 ${day.dateY}`,
-            size: 50,
-            position: 'bottom',
-            positionsite: 590,
-            x_offset: -80,
-            color: [255, 255, 255]
-        },
-        {
-            text: day.hseb,
-            size: 50,
-            position: 'bottom',
-            positionsite: 510,
-            x_offset: -80,
-            color: [255, 255, 255]
-        }
-    ];
+// 默认导出 API 路由处理函数
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        const day = await curlGetRequest("https://api.luoh.my.to/New/RiliTools/DateInfo/");
+        const textParams = [
+            {
+                text: day.dateD,
+                size: 180,
+                position: 'bottom',
+                positionsite: 600,
+                x_offset: -80,
+                color: [255, 255, 255]
+            },
+            {
+                text: `${day.dateMC}月 ${day.dateY}`,
+                size: 50,
+                position: 'bottom',
+                positionsite: 590,
+                x_offset: -80,
+                color: [255, 255, 255]
+            },
+            {
+                text: day.hseb,
+                size: 50,
+                position: 'bottom',
+                positionsite: 510,
+                x_offset: -80,
+                color: [255, 255, 255]
+            }
+        ];
 
-    const text = day.text.length > 21 ? [
-        { text: day.text.substring(0, 21), size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] },
-        { text: day.text.substring(21), size: 35, position: 'bottom', positionsite: 250, x_offset: -30, color: [255, 255, 255] }
-    ] : [
-        { text: day.text, size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] }
-    ];
+        const text = day.text.length > 21 ? [
+            { text: day.text.substring(0, 21), size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] },
+            { text: day.text.substring(21), size: 35, position: 'bottom', positionsite: 250, x_offset: -30, color: [255, 255, 255] }
+        ] : [
+            { text: day.text, size: 35, position: 'bottom', positionsite: 300, x_offset: -80, color: [255, 255, 255] }
+        ];
 
-    const allTextParams = [...textParams, ...text];
+        const allTextParams = [...textParams, ...text];
 
-    const images = fs.readdirSync(IMAGE_DIR).filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
-    const randomImage = path.join(IMAGE_DIR, images[Math.floor(Math.random() * images.length)]);
-    const resizedImagePath = await resizeImage(randomImage, 1080, 1277);
-    await addTextToImage(resizedImagePath, allTextParams);
-})();
+        const images = fs.readdirSync(IMAGE_DIR).filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+        const randomImage = path.join(IMAGE_DIR, images[Math.floor(Math.random() * images.length)]);
+        const resizedImagePath = await resizeImage(randomImage, 1080, 1277);
+        await addTextToImage(resizedImagePath, allTextParams);
+
+        // 返回成功响应
+        res.status(200).json({ message: 'Image created successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while creating the image.' });
+    }
+};
