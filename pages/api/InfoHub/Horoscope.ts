@@ -88,7 +88,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const horoscopeUrl = `http://cal.meizu.com/android/unauth/horoscope/gethoroscope.do?type=${zodiacKey}&date=${new Date().toISOString().split('T')[0]}&searchType=0`;
     
     try {
-        const horoscopeResponse = await fetch(horoscopeUrl).then(res => res.json());
+        // 为 horoscopeResponse 指定类型
+        const horoscopeResponse = await fetch(horoscopeUrl).then(res => res.json()) as {
+            direction: string;
+            friends: string;
+            numbers: string;
+            lucklyColor: string;
+            contentLove: string;
+            contentFortune: string;
+            contentCareer: string;
+            contentAll: string;
+            shorts: string;
+        };
 
         // 加载并注册远程字体
         await loadAndRegisterFont();
