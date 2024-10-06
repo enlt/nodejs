@@ -7,7 +7,7 @@ import os from 'os';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 使用本地字体路径
-const FONT_PATH = path.join(__dirname, '../../storage/ttf/font.ttf');
+const FONT_PATH = path.join(process.cwd(), 'public/ttf/font.ttf');
 const IMAGE_TXT_URL = 'https://api.luoh.us.kg/storage/daysign/images/images.txt';
 
 // 调整图像尺寸
