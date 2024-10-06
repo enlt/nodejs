@@ -9,7 +9,7 @@ const getJsonLink = (type: string): string => {
 
 // 获取图片链接
 const getImageLink = (type: string, value: string): string => {
-  const baseUrl = 'https://new-api-1.pages.dev/image/emoticon/'';
+  const baseUrl = 'https://new-api-1.pages.dev/image/emoticon/';
   return `${baseUrl}${type}/${value}`;
 };
 
