@@ -8,7 +8,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 使用远程字体的 URL
 const FONT_URL = 'https://api.luoh.my.to/storage/ttf/font.ttf';
-const IMAGE_DIR = path.join(__dirname, '../../../public/storage/daysign/images');
+const IMAGE_DIR = path.join(__dirname, '../../storage/daysign/images');
 
 // 调整图像尺寸
 async function resizeImage(imagePath: string, newWidth: number, newHeight: number): Promise<string> {
