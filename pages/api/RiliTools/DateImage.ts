@@ -7,8 +7,8 @@ import os from 'os';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 远程字体文件 URL
-const FONT_URL = 'https://api.luoh.us.kg/storage/ttf/font.ttf';
-const IMAGE_TXT_URL = 'https://api.luoh.us.kg/storage/daysign/images/images.txt';
+const FONT_URL = 'https://api.luoh-an.me/storage/ttf/font.ttf';
+const IMAGE_TXT_URL = 'https://api.luoh-an.me/storage/daysign/images/images.txt';
 
 // 下载远程字体并保存到临时目录
 async function downloadFont(): Promise<string> {

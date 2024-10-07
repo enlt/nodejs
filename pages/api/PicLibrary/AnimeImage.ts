@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 // 获取 JSON 链接
 const getJsonLink = (type: string): string => {
-  const baseUrl = 'https://api.luoh.my.to/storage/json/image/ecy/';
+  const baseUrl = 'https://api.luoh-an.me/storage/json/image/ecy/';
   return `${baseUrl}${type}/.json`;
 };
 

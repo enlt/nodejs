@@ -10,7 +10,7 @@ const getMimeType = (extension: string): string => {
 };
 
 const getJsonLink = (): string => {
-    return 'https://api.luoh.my.to/storage/json/image/other/.json';
+    return 'https://api.luoh-an.me/storage/json/image/other/.json';
 };
 
 const getImageLink = (value: string): string => {

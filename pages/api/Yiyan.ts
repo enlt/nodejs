@@ -10,7 +10,7 @@ const setCorsHeaders = (res: NextApiResponse) => {
 
 // 根据类型获取文本文件的远程 URL
 const getTextLink = (type: string): string => {
-    const baseUrl = 'https://api.luoh.us.kg/storage/json/text/';
+    const baseUrl = 'https://api.luoh-an.me/storage/json/text/';
     return `${baseUrl}${type}.txt`;
 };
 
